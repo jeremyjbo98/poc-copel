@@ -255,3 +255,6 @@ main .section.highlight {
   margin: 0;
   padding: 40px 0;
 }
+#palette-asset-library > iframe{
+    height: 93px;
+}
