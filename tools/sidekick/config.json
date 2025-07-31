@@ -1,6 +1,6 @@
 {
     "project": "franklin-asset-selector",
-    "host": "www.mymydomain.prod",
+    "host": "main--poc-copel--jeremyjbo98.aem.live",
     "plugins": [
         {
             "id": "asset-library",
