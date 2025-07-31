@@ -6,7 +6,7 @@
       "id": "asset-library",
       "title": "Assets Copel",
       "environments": ["edit"],
-      "url": "https://experience.adobe.com/solutions/CQ-assets-selectors/assets.html",
+      "url": "https://experience.adobe.com/solutions/CQ-helix-assets-addon/static-assets/resources/asset-selector.html",
       "isPalette": true,
       "includePaths": ["**/*.docx"],
       "passConfig": true,
