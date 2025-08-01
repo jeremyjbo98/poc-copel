@@ -1,11 +1,15 @@
 /* header and nav layout */
 header .nav-wrapper {
   background-color: var(--background-color);
-  width: 100%;
+  width: 20%;
+  height: 100%;
   z-index: 2;
   position: fixed;
 }
-
+.header-wrapper{
+  position: fixed;
+  z-index: 999;
+}
 header nav {
   box-sizing: border-box;
   display: grid;
@@ -16,7 +20,7 @@ header nav {
   gap: 0 24px;
   margin: auto;
   max-width: 1248px;
-  height: var(--nav-height);
+  height: 100%;
   padding: 0 24px;
   font-family: var(--body-font-family);
 }
@@ -33,10 +37,11 @@ header nav[aria-expanded='true'] {
 @media (width >= 900px) {
   header nav {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     gap: 0 32px;
     max-width: 1264px;
-    padding: 0 32px;
+    padding: 32px;
   }
 
   header nav[aria-expanded='true'] {
