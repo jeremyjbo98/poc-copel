@@ -247,11 +247,11 @@ header nav .nav-sections ul > li > ul > li {
   header nav .nav-sections .default-content-wrapper > ul > li[aria-expanded='true'] > ul {
     display: block;
     position: relative;
-    left: -32px;
+    left: -16px;
     width: 100%;
     top: 150%;
     padding: 16px 0;
-    background-color: var(--light-color);
+    background-color: rgba(0, 0, 0, 0.2);
     white-space: initial;
   }
 
