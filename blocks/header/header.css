@@ -41,7 +41,7 @@ header nav[aria-expanded='true'] {
     justify-content: space-between;
     gap: 0 32px;
     max-width: 1264px;
-    padding: 32px;
+    padding: 32px 0;
     color: rgba(184, 184, 185, 1);
   }
 
@@ -235,6 +235,7 @@ header nav .nav-sections ul > li > ul > li {
   header nav .nav-sections .default-content-wrapper > ul > li {
     flex: 0 1 auto;
     position: relative;
+    padding: 0;
   }
 
   header nav .nav-sections .default-content-wrapper > ul > li > ul {
@@ -244,9 +245,9 @@ header nav .nav-sections ul > li > ul > li {
 
   header nav .nav-sections .default-content-wrapper > ul > li[aria-expanded='true'] > ul {
     display: block;
-    position: absolute;
-    left: -24px;
-    width: 200px;
+    position: relative;
+    left: 0px;
+    width: 100%;
     top: 150%;
     padding: 16px;
     background-color: var(--light-color);
