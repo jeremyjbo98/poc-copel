@@ -198,6 +198,7 @@ header nav .nav-sections ul > li > ul > li {
 
   header nav[aria-expanded='true'] .nav-sections {
     align-self: unset;
+    margin-left: 32px;
   }
 
   header nav .nav-sections .nav-drop {
@@ -211,7 +212,7 @@ header nav .nav-sections ul > li > ul > li {
     display: inline-block;
     position: absolute;
     top: 0.5em;
-    right: 2px;
+    right: 32px;
     transform: rotate(135deg);
     width: 6px;
     height: 6px;
@@ -246,7 +247,7 @@ header nav .nav-sections ul > li > ul > li {
   header nav .nav-sections .default-content-wrapper > ul > li[aria-expanded='true'] > ul {
     display: block;
     position: relative;
-    left: 0px;
+    left: -32px;
     width: 100%;
     top: 150%;
     padding: 16px 0;
