@@ -39,9 +39,11 @@ header nav[aria-expanded='true'] {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    text-align: flex-start;
     gap: 0 32px;
     max-width: 1264px;
     padding: 32px;
+    color: rgba(184, 184, 185, 1);
   }
 
   header nav[aria-expanded='true'] {
