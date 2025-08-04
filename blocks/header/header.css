@@ -39,7 +39,6 @@ header nav[aria-expanded='true'] {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    text-align: flex-start;
     gap: 0 32px;
     max-width: 1264px;
     padding: 32px;
@@ -162,6 +161,7 @@ header nav .nav-sections {
   flex: 1 1 auto;
   display: none;
   visibility: hidden;
+  width: 100%;
 }
 
 header nav[aria-expanded='true'] .nav-sections {
@@ -174,6 +174,7 @@ header nav .nav-sections ul {
   list-style: none;
   padding-left: 0;
   font-size: var(--body-font-size-s);
+  flex-direction: column;
 }
 
 header nav .nav-sections ul > li {
