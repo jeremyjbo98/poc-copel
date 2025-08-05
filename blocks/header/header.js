@@ -125,7 +125,8 @@ function initLogin() {
       if (isLoggedIn()) {
         document.cookie = 'loggedIn=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
         alert('Has cerrado sesión');
-        updateButtonText();
+
+        window.location.href = '/';
         return;
       }
 
@@ -137,7 +138,7 @@ function initLogin() {
         return;
       }
 
-      if (username === 'admin' && password === '1234') {
+      if (username === 'admin' && password === 'admin') {
         document.cookie = 'loggedIn=true; path=/; max-age=86400';
         alert('Inicio de sesión exitoso');
         updateButtonText();
@@ -147,6 +148,7 @@ function initLogin() {
     });
   }
 }
+
 
 /**
  * loads and decorates the header, mainly the nav
