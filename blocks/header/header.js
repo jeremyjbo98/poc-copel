@@ -149,6 +149,26 @@ function initLogin() {
   }
 }
 
+async function markProtectedLinksInHeader() {
+  const links = document.querySelectorAll('.nav-tools a, .nav-sections a');
+
+  for (const link of links) {
+    try {
+      const res = await fetch(link.href);
+      const html = await res.text();
+
+      if (html.includes('meta name="protected-page" content="true"')) {
+        const icon = document.createElement('span');
+        icon.textContent = ' 🔒';
+        icon.title = 'Requiere inicio de sesión';
+        icon.classList.add('protected-icon');
+        link.appendChild(icon);
+      }
+    } catch (err) {
+      // Falla por links externos o de error
+    }
+  }
+}
 
 /**
  * loads and decorates the header, mainly the nav
@@ -212,4 +232,5 @@ export default async function decorate(block) {
   block.append(navWrapper);
 
   initLogin();
+  markProtectedLinksInHeader();
 }
