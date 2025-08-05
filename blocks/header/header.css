@@ -10,7 +10,10 @@
   top: 0;
   left: 0;
 }
-
+.icon img{
+  width: 24px;
+  height: 24px;
+}
 header nav {
   box-sizing: border-box;
   display: grid;
