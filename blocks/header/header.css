@@ -210,6 +210,11 @@ header nav .nav-sections ul > li > ul > li {
     cursor: pointer;
   }
 
+  header nav .nav-sections .nav-drop li a {
+    display: flex;
+    justify-content: space-between;
+  }
+
   header nav .nav-sections .nav-drop::after {
     content: '';
     display: inline-block;
@@ -273,7 +278,8 @@ header nav .nav-sections ul > li > ul > li {
 
   header nav .nav-sections .default-content-wrapper > ul > li > ul > li {
     padding: 8px 0;
-    margin-left: 32px;
+    /* margin-left: 32px; */
+    margin: 0 32px;
   }
 }
 

@@ -103,10 +103,37 @@ function toggleMenu(nav, navSections, forceExpanded = null) {
   }
 }
 
+function isLoggedIn() {
+  return document.cookie.includes('loggedIn=true');
+}
+
+function createLockIcon(open = false) {
+  const svgNS = "http://www.w3.org/2000/svg";
+  const svg = document.createElementNS(svgNS, "svg");
+  svg.setAttribute("viewBox", "0 0 24 24");
+  svg.setAttribute("class", "lock-icon");
+  svg.setAttribute("fill", "none");
+  svg.setAttribute("stroke", "white");
+  svg.setAttribute("stroke-width", "2");
+  svg.setAttribute("width", "16");
+  svg.setAttribute("height", "16");
+
+  const path = document.createElementNS(svgNS, "path");
+  path.setAttribute("stroke-linecap", "round");
+  path.setAttribute("stroke-linejoin", "round");
+
+  if (open) {
+    path.setAttribute("d", "M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zM7 11V7a5 5 0 019.9-1");
+  } else {
+    path.setAttribute("d", "M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zM16 11V7a4 4 0 00-8 0v4");
+  }
+
+  svg.appendChild(path);
+  return svg;
+}
+
 function initLogin() {
   const loginButton = document.querySelector('.nav-tools .button[href="/"]');
-
-  const isLoggedIn = () => document.cookie.includes('loggedIn=true');
 
   const updateButtonText = () => {
     if (isLoggedIn()) {
@@ -125,7 +152,6 @@ function initLogin() {
       if (isLoggedIn()) {
         document.cookie = 'loggedIn=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
         alert('Has cerrado sesión');
-
         window.location.href = '/';
         return;
       }
@@ -142,6 +168,7 @@ function initLogin() {
         document.cookie = 'loggedIn=true; path=/; max-age=86400';
         alert('Inicio de sesión exitoso');
         updateButtonText();
+        window.location.href = '/';
       } else {
         alert('Usuario o contraseña incorrectos');
       }
@@ -158,11 +185,11 @@ async function markProtectedLinksInHeader() {
       const html = await res.text();
 
       if (html.includes('meta name="protected-page" content="true"')) {
-        const icon = document.createElement('span');
-        icon.textContent = ' 🔒';
-        icon.title = 'Requiere inicio de sesión';
-        icon.classList.add('protected-icon');
-        link.appendChild(icon);
+        const lockIcon = createLockIcon(isLoggedIn());
+        lockIcon.title = isLoggedIn()
+          ? 'Página protegida (sesión iniciada)'
+          : 'Página protegida (requiere inicio de sesión)';
+        link.appendChild(lockIcon);
       }
     } catch (err) {
       // Falla por links externos o de error
