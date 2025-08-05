@@ -1,20 +1,29 @@
 footer {
-  background-color: var(--light-color);
   font-size: var(--body-font-size-xs);
 }
 
+footer .footer a {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+footer .footer a:hover {
+  text-decoration: underline;
+}
+
 footer .footer > div {
-  margin: auto;
-  max-width: 1200px;
-  padding: 40px 24px 24px;
+  padding: 28px 48px 67px;
+}
+
+footer .footer .default-content-wrapper {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 24px;
 }
 
 footer .footer p {
+  display: flex;
+  gap: 24px;
   margin: 0;
-}
-
-@media (width >= 900px) {
-  footer .footer > div {
-    padding: 40px 32px 24px;
-  }
 }
