@@ -126,4 +126,10 @@ async function loadPage() {
   loadDelayed();
 }
 
-loadPage();
+const isProtected = document.querySelector('meta[name="protected-page"]')?.content === 'true';
+if (isProtected && !document.cookie.includes('loggedIn=true')) {
+  window.location.replace('/'); 
+} else {
+  loadPage();
+}
+

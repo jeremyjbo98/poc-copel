@@ -103,6 +103,51 @@ function toggleMenu(nav, navSections, forceExpanded = null) {
   }
 }
 
+function initLogin() {
+  const loginButton = document.querySelector('.nav-tools .button[href="/"]');
+
+  const isLoggedIn = () => document.cookie.includes('loggedIn=true');
+
+  const updateButtonText = () => {
+    if (isLoggedIn()) {
+      loginButton.textContent = 'Cerrar sesión';
+    } else {
+      loginButton.textContent = 'Iniciar sesión';
+    }
+  };
+
+  if (loginButton) {
+    updateButtonText();
+
+    loginButton.addEventListener('click', (e) => {
+      e.preventDefault();
+
+      if (isLoggedIn()) {
+        document.cookie = 'loggedIn=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+        alert('Has cerrado sesión');
+        updateButtonText();
+        return;
+      }
+
+      const username = prompt('Ingresa tu usuario:');
+      const password = prompt('Ingresa tu contraseña:');
+
+      if (!username || !password) {
+        alert('Debes ingresar ambos campos para continuar.');
+        return;
+      }
+
+      if (username === 'admin' && password === '1234') {
+        document.cookie = 'loggedIn=true; path=/; max-age=86400';
+        alert('Inicio de sesión exitoso');
+        updateButtonText();
+      } else {
+        alert('Usuario o contraseña incorrectos');
+      }
+    });
+  }
+}
+
 /**
  * loads and decorates the header, mainly the nav
  * @param {Element} block The header block element
@@ -163,4 +208,6 @@ export default async function decorate(block) {
   navWrapper.className = 'nav-wrapper';
   navWrapper.append(nav);
   block.append(navWrapper);
+
+  initLogin();
 }
