@@ -19,6 +19,13 @@
   --link-color: #3b63fb;
   --link-hover-color: #1d3ecf;
 
+  /* campaign colors */
+  --color-campaign-blue: #5C78FF;
+  --color-campaign-black: #101820;
+  --color-campaign-yellow: #FDDA25;
+  --color-campaign-blue-dark: #385E9D;
+  --color-campaign-red: #D22630;
+
   /* fonts */
   --body-font-family: roboto, roboto-fallback, sans-serif;
   --heading-font-family: roboto-condensed, roboto-condensed-fallback, sans-serif;
