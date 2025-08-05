@@ -1,6 +1,7 @@
 footer {
   font-size: var(--body-font-size-xs);
   color: var(--text-color);
+  margin-top: auto;
 }
 
 footer .footer a {
