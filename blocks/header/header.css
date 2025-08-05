@@ -1,15 +1,16 @@
 /* header and nav layout */
-header .nav-wrapper {
-  background-color: rgba(51, 51, 51, 1);
-  width: 20%;
-  height: 100%;
-  z-index: 2;
-  position: fixed;
-}
 .header-wrapper{
+  width: 280px;
+  min-height: 100vh;
+  background-color: rgba(51, 51, 51, 1);
+  color: white;
+  padding: 20px;
+  box-sizing: border-box;
   position: fixed;
-  z-index: 999;
+  top: 0;
+  left: 0;
 }
+
 header nav {
   box-sizing: border-box;
   display: grid;

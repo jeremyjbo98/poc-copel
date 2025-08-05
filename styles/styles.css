@@ -146,6 +146,12 @@ main > div {
   margin: 40px 16px;
 }
 
+main, footer {
+  margin-left: 280px;
+  box-sizing: border-box;
+  width: calc(100% - 280px);
+}
+
 input,
 textarea,
 select,
