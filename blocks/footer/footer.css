@@ -1,5 +1,6 @@
 footer {
   font-size: var(--body-font-size-xs);
+  color: var(--text-color);
 }
 
 footer .footer a {
