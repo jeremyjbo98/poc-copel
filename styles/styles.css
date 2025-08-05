@@ -70,6 +70,13 @@
   }
 }
 
+/* Evitar overscroll */
+body, html {
+  overflow-x: hidden;
+  width: 100%;
+  overscroll-behavior: none;
+}
+
 body {
   display: none;
   margin: 0;
