@@ -134,46 +134,86 @@ function createLockIcon(open = false) {
 
 function initLogin() {
   const loginButton = document.querySelector('.nav-tools .button[href="/"]');
+  const loginPanelElement = document.getElementById('login-panel');
+  const emailInput = document.getElementById('login-email');
+  const passwordInput = document.getElementById('login-password');
+  const submitBtn = document.getElementById('login-submit');
+  const closeBtn = document.querySelector('.login-close');
+  const errorMessage = document.getElementById('login-error');
 
   const updateButtonText = () => {
-    if (isLoggedIn()) {
-      loginButton.textContent = 'Cerrar sesión';
-    } else {
-      loginButton.textContent = 'Iniciar sesión';
-    }
+    loginButton.textContent = isLoggedIn() ? 'Cerrar sesión' : 'Iniciar sesión';
   };
+
+  const hideLoginPanel = () => {
+    loginPanelElement.classList.add('hidden');
+    emailInput.value = '';
+    passwordInput.value = '';
+    errorMessage.textContent = '';
+    errorMessage.classList.add('hidden');
+  };
+
+  const showError = (message) => {
+    errorMessage.textContent = message;
+    errorMessage.classList.remove('hidden');
+  };
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', hideLoginPanel);
+  }
+
+  if (submitBtn) {
+    submitBtn.addEventListener('click', () => {
+      const email = emailInput.value.trim();
+      const password = passwordInput.value.trim();
+
+      if (!email || !password) {
+        showError('Debes ingresar ambos campos');
+        return;
+      }
+
+      if (email === 'admin' && password === 'admin') {
+        document.cookie = 'loggedIn=true; path=/; max-age=86400';
+        hideLoginPanel();
+        updateButtonText();
+      
+        const redirectTo = localStorage.getItem('redirectAfterLogin');
+        if (redirectTo) {
+          localStorage.setItem('loginSuccess', 'true');
+          localStorage.removeItem('redirectAfterLogin');
+          window.location.href = redirectTo;
+        } else {
+          showToast('Inicio de sesión exitoso', 'success');
+        }        
+      }      
+    });
+  }
 
   if (loginButton) {
     updateButtonText();
 
     loginButton.addEventListener('click', (e) => {
       e.preventDefault();
-
+    
       if (isLoggedIn()) {
         document.cookie = 'loggedIn=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-        alert('Has cerrado sesión');
-        window.location.href = '/';
-        return;
-      }
-
-      const username = prompt('Ingresa tu usuario:');
-      const password = prompt('Ingresa tu contraseña:');
-
-      if (!username || !password) {
-        alert('Debes ingresar ambos campos para continuar.');
-        return;
-      }
-
-      if (username === 'admin' && password === 'admin') {
-        document.cookie = 'loggedIn=true; path=/; max-age=86400';
-        alert('Inicio de sesión exitoso');
-        updateButtonText();
+        document.cookie = 'loggedIn=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+        localStorage.setItem('logoutSuccess', 'true');
         window.location.href = '/';
       } else {
-        alert('Usuario o contraseña incorrectos');
+        showLoginPanel();
       }
-    });
+    });    
   }
+}
+
+function showLoginPanel() {
+  const loginPanelElement = document.getElementById('login-panel');
+  const errorMessage = document.getElementById('login-error');
+
+  loginPanelElement.classList.remove('hidden');
+  errorMessage.classList.add('hidden');
+  errorMessage.textContent = '';
 }
 
 async function markProtectedLinksInHeader() {
@@ -190,11 +230,35 @@ async function markProtectedLinksInHeader() {
           ? 'Página protegida (sesión iniciada)'
           : 'Página protegida (requiere inicio de sesión)';
         link.appendChild(lockIcon);
+
+        if (!isLoggedIn()) {
+          link.addEventListener('click', (e) => {
+            e.preventDefault();
+            localStorage.setItem('redirectAfterLogin', link.href);
+            showLoginPanel();
+          });          
+        }
       }
     } catch (err) {
-      // Falla por links externos o de error
     }
   }
+}
+
+function showToast(message, type = 'success', duration = 3000) {
+  const container = document.getElementById('toast-container');
+  const toast = document.createElement('div');
+  toast.className = `toast toast-${type}`;
+  toast.textContent = message;
+
+  container.classList.remove('hidden');
+  container.appendChild(toast);
+
+  setTimeout(() => {
+    toast.remove();
+    if (container.children.length === 0) {
+      container.classList.add('hidden');
+    }
+  }, duration);
 }
 
 /**
@@ -258,6 +322,39 @@ export default async function decorate(block) {
   navWrapper.append(nav);
   block.append(navWrapper);
 
+  const loginPanel = document.createElement('div');
+  loginPanel.id = 'login-panel';
+  loginPanel.classList.add('login-panel', 'hidden');
+  loginPanel.innerHTML = `
+    <div class="login-panel-overlay"></div>
+    <div class="login-panel-content">
+      <button class="login-close" aria-label="Cerrar">✕</button>
+      <h2>Inicia sesión</h2>
+      <label for="login-email">Correo electrónico</label>
+      <input type="email" id="login-email" placeholder="correo@ejemplo.com" required>
+      <label for="login-password">Contraseña</label>
+      <input type="password" id="login-password" placeholder="••••••••" required>
+      <button id="login-submit" class="button login-button">Entrar</button>
+      <span id="login-error" class="login-error hidden"></span>
+    </div>
+  `;
+  document.body.appendChild(loginPanel);
+
+  const toastContainer = document.createElement('div');
+  toastContainer.id = 'toast-container';
+  toastContainer.className = 'toast-container hidden';
+  document.body.appendChild(toastContainer);
+
   initLogin();
   markProtectedLinksInHeader();
+
+  if (localStorage.getItem('loginSuccess') === 'true') {
+    localStorage.removeItem('loginSuccess');
+    showToast('Inicio de sesión exitoso', 'success');
+  }  
+
+  if (localStorage.getItem('logoutSuccess') === 'true') {
+    localStorage.removeItem('logoutSuccess');
+    showToast('Has cerrado sesión correctamente', 'success');
+  }
 }
