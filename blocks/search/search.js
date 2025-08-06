@@ -5,6 +5,17 @@ import {
 import { fetchPlaceholders } from '../../scripts/placeholders.js';
 
 const searchParams = new URLSearchParams(window.location.search);
+let searchIconField = document.querySelector('.icon-search-white img');
+let searchInputField = document.querySelector('.search-input');
+
+searchIconField.addEventListener('click', () => {
+  if (searchInputField.style.display === 'block') {
+    searchInputField.style.display = 'none';
+  } else {
+    searchInputField.style.display = 'block';
+    searchInputField.focus();
+  }
+});
 
 function findNextHeading(el) {
   let preceedingEl = el.parentElement.previousElement || el.parentElement.parentElement;

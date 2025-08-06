@@ -9,6 +9,7 @@
 
 .search .search-box .icon-search-white{
   padding: 0.5em 0;
+  cursor: pointer;
 }
 .search .search-box .search-input{
   display: none;
