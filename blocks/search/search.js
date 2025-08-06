@@ -5,6 +5,18 @@ import {
 import { fetchPlaceholders } from '../../scripts/placeholders.js';
 
 const searchParams = new URLSearchParams(window.location.search);
+const searchIconImg = document.querySelector('.icon-search-white');
+function openSearchInput() {
+  const input = document.querySelector('.search-input');
+  if (input) {
+    input.style.display = 'block';
+    input.focus();
+  }
+}
+
+searchIconImg.addEventListener('click', () => {
+  openSearchInput();
+});
 
 function findNextHeading(el) {
   let preceedingEl = el.parentElement.previousElement || el.parentElement.parentElement;
