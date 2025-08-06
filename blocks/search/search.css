@@ -13,6 +13,7 @@
 }
 .search .search-box .search-input{
   display: none;
+  transition: all 0.3s ease-in-out;
 }
 
 .search .search-box input {
