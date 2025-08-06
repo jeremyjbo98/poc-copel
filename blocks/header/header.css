@@ -452,4 +452,12 @@ header nav .nav-tools .button-container a:hover {
   }
 }
 
+.nav-sections a.active-menu-item {
+  background-color: var(--color-campaign-yellow);
+  color: var(--color-campaign-black);
+  font-weight: bold;
+  border-radius: 8px;
+  padding: 8px 12px;
+  display: inline-block;
+}
 

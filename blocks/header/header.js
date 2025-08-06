@@ -123,7 +123,7 @@ function createLockIcon(open = false) {
   path.setAttribute("stroke-linejoin", "round");
 
   if (open) {
-    path.setAttribute("d", "M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zM7 11V7a5 5 0 019.9-1");
+    /* path.setAttribute("d", "M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zM7 11V7a5 5 0 019.9-1"); */
   } else {
     path.setAttribute("d", "M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zM16 11V7a4 4 0 00-8 0v4");
   }
@@ -263,6 +263,19 @@ function showToast(message, type = 'success', duration = 3000) {
   }, duration);
 }
 
+function highlightActiveMenuItem() {
+  const currentPath = window.location.pathname;
+  const menuLinks = document.querySelectorAll('.nav-sections a');
+
+  menuLinks.forEach(link => {
+    const linkPath = new URL(link.href).pathname;
+    if (currentPath === linkPath) {
+      link.classList.add('active-menu-item');
+    }
+  });
+}
+
+
 /**
  * loads and decorates the header, mainly the nav
  * @param {Element} block The header block element
@@ -301,6 +314,14 @@ export default async function decorate(block) {
           const expanded = navSection.getAttribute('aria-expanded') === 'true';
           toggleAllNavSections(navSections);
           navSection.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+        }
+
+        const allNavSections = navSections.querySelectorAll('.nav-drop');
+        const index = [...allNavSections].indexOf(navSection);
+        if (navSection.getAttribute('aria-expanded') === 'false') {
+          localStorage.setItem('activeNavIndex', index);
+        } else {
+          localStorage.removeItem('activeNavIndex');
         }
       });
     });
@@ -349,6 +370,20 @@ export default async function decorate(block) {
 
   initLogin();
   markProtectedLinksInHeader();
+  highlightActiveMenuItem();
+
+  const savedIndex = localStorage.getItem('activeNavIndex');
+  if (savedIndex !== null) {
+    const navItems = document.querySelectorAll('.nav-sections .nav-drop');
+    const targetItem = navItems[parseInt(savedIndex, 10)];
+    if (targetItem) {
+      targetItem.setAttribute('aria-expanded', 'true');
+      // targetItem.scrollIntoView({ behavior: 'smooth', block: 'center' }); // opcional
+    }
+    localStorage.removeItem('activeNavIndex');
+  }
+
+
 
   if (localStorage.getItem('loginSuccess') === 'true') {
     localStorage.removeItem('loginSuccess');
