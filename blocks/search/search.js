@@ -265,19 +265,11 @@ export default async function decorate(block) {
   }
 
   decorateIcons(block);
-}
-// Espera a que el DOM se cargue completamente
-document.addEventListener('DOMContentLoaded', function() {
-  // Seleccionamos el ícono de búsqueda y el contenedor de búsqueda
-  const searchIcon = document.querySelector('.search .icon-search-white');
-  const searchBox = document.querySelector('.search .search-box .search-input');
 
-  // Verificamos que los elementos existan
-  if (searchIcon && searchBox) {
-    searchIcon.addEventListener('click', function() {
-      console.log('Icono de búsqueda clickeado', searchBox, searchIcon);
-      // Alternamos la clase 'active' en el contenedor de búsqueda
-      searchBox.classList.toggle('active');
-    });
-  }
-});
+  const searchBoxEl = block.querySelector('.search-box .icon-search-white img');
+  const searchInputEl = block.querySelector('.search-box .search-input');
+  
+  searchBoxEl.addEventListener('click', function() {
+    searchInputEl.style.display = searchInputEl.style.display === 'block' ? 'none' : 'block';
+  });
+}
