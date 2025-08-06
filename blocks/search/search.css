@@ -4,6 +4,14 @@
   grid-template-columns: auto 1fr;
   gap: 1ch;
   align-items: center;
+  padding: 16px 16px 0;
+}
+
+.search .search-box .icon-search-white{
+  padding: 0.5em 0;
+}
+.search .search-box .search-input{
+  display: none;
 }
 
 .search .search-box input {
