@@ -275,6 +275,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Verificamos que los elementos existan
   if (searchIcon && searchBox) {
     searchIcon.addEventListener('click', function() {
+      console.log('Icono de búsqueda clickeado', searchBox, searchIcon);
       // Alternamos la clase 'active' en el contenedor de búsqueda
       searchBox.classList.toggle('active');
     });
