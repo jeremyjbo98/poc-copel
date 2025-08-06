@@ -183,6 +183,8 @@ function initLogin() {
           localStorage.removeItem('redirectAfterLogin');
           window.location.href = redirectTo;
         } else {
+          localStorage.setItem('loginSuccess', 'true');
+          window.location.href = '/';
           showToast('Inicio de sesión exitoso', 'success');
         }        
       }      
@@ -197,10 +199,10 @@ function initLogin() {
     
       if (isLoggedIn()) {
         document.cookie = 'loggedIn=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-        document.cookie = 'loggedIn=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
         localStorage.setItem('logoutSuccess', 'true');
         window.location.href = '/';
       } else {
+        localStorage.removeItem('redirectAfterLogin');
         showLoginPanel();
       }
     });    
