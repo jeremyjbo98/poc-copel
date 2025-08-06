@@ -276,7 +276,7 @@ document.addEventListener('DOMContentLoaded', function() {
   if (searchIcon && searchBox) {
     searchIcon.addEventListener('click', function() {
       // Alternamos la clase 'active' en el contenedor de búsqueda
-      document.querySelector('.search').classList.toggle('active');
+      searchBox.classList.toggle('active');
     });
   }
 });
