@@ -1,15 +1,25 @@
-// /blocks/download/download.js
 export default function decorate(block) {
-  const url = block.querySelector('a')?.href;
-  if (!url) return;
+  const imgCell = block.querySelector('img');
+  const link = block.querySelector('a');
+  
+  const container = document.createElement('div');
+  container.className = 'card-download';
+
+  const imgWrapper = document.createElement('div');
+  imgWrapper.className = 'image';
+  imgWrapper.appendChild(imgCell);
+
   const btn = document.createElement('a');
-  btn.href = url;
+  btn.href = link.href;
   btn.textContent = 'Descargar';
   btn.className = 'button download';
-  // Fuerza descarga del binario en navegadores compatibles
   btn.setAttribute('download', '');
-  // Accesibilidad
-  btn.setAttribute('aria-label', 'Descargar recurso');
+
+  const btnWrapper = document.createElement('div');
+  btnWrapper.className = 'actions';
+  btnWrapper.appendChild(btn);
+
+  container.append(imgWrapper, btnWrapper);
   block.innerHTML = '';
-  block.appendChild(btn);
+  block.appendChild(container);
 }
